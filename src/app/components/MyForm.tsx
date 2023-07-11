@@ -6,7 +6,7 @@ import { Task } from "../page"
 export function MyForm({appendTask}: {appendTask: (newTask: Task) => void}) {
   const [value, setValue] = useState('');
 
-  function onSubmit(event: any) {
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const newTask: Task = {
