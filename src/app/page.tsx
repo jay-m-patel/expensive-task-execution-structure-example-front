@@ -12,7 +12,7 @@ export interface Task {
 
 export default function App() {
   const [clientId, setClientId] = useState('');
-  const [tasks, setTasks] = useState<Array<Task>>([])
+  const [tasks, setTasks] = useState<Array<Task>>([]);  // initial(fetched from db) pending tasks expect 'expensive-task-executed' event!
 
   useEffect(() => {
     setClientId("CLIENT:" + (Math.random() * 1000000).toFixed(0));
