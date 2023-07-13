@@ -1,5 +1,5 @@
 import React from 'react'
-import { Task } from '../page'
+import { Task } from '../dashboard/page'
 
 function TaskView({ task }: { task: Task }) {
     console.log("TaskView:", task);

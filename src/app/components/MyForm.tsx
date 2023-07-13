@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { socket } from '../socket';
-import { Task } from "../page"
+import { Task } from "../dashboard/page";
 
 export function MyForm({appendTask}: {appendTask: (newTask: Task) => void}) {
   const [value, setValue] = useState('');
@@ -26,7 +26,7 @@ export function MyForm({appendTask}: {appendTask: (newTask: Task) => void}) {
     <form onSubmit={ onSubmit }>
       <input onChange={ e => setValue(e.target.value) } value={value} />
 
-      <button type="submit">Submit</button>
+      <button type="submit">Start the task</button>
     </form>
   );
 }
