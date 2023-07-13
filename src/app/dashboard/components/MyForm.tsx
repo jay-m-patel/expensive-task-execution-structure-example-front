@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { socket } from '../socket';
-import { Task } from "../dashboard/page";
+import { socket } from '../../socket';
+import { Task } from "../page";
 
 export function MyForm({appendTask}: {appendTask: (newTask: Task) => void}) {
   const [value, setValue] = useState('');

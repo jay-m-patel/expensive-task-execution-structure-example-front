@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect, useCallback } from 'react';
 import { socket } from '../socket';
-import { MyForm } from '../components/MyForm';
-import TaskView from '../components/TaskView';
+import { MyForm } from './components/MyForm';
+import TaskView from './components/TaskView';
 import { useSearchParams } from 'next/navigation';
 
 export interface Task {
