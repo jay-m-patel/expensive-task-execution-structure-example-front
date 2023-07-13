@@ -11,17 +11,19 @@ export interface Task {
   isDone: boolean,
 }
 
-export default function App() {
+const TaskManager = () => {
   const [tasks, setTasks] = useState<Array<Task>>([]);  // initial(fetched from db) pending tasks expect 'expensive-task-executed' event!
 
   const searchcParams = useSearchParams();
 
-  const clientId = searchcParams.get(("clientId"));
+  const clientId: string | null = searchcParams.get(("clientId"));
+  console.log("clientId:", clientId);
 
   useEffect(() => {
 
     function onConnect() {
       console.log("connected with socket id:", socket.id);
+      socket.emit("join-personal-room", clientId);
     }
 
     socket.on('connect', onConnect);
@@ -47,13 +49,17 @@ export default function App() {
     setTasks([...tasks, newTask]);
   }, [tasks, setTasks])
 
+  if(!clientId) return <p>Unknown Client!</p>
+
   return (
     <div className="App">
       <h1>{clientId}</h1>
-      <MyForm appendTask={appendTask} />
+      <MyForm appendTask={appendTask} clientId={clientId} />
       {
         tasks.map((task) => <TaskView task={task} key={task.id} />)
       }
     </div>
   );
 }
+
+export default TaskManager;

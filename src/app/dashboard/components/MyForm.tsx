@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { socket } from '../../socket';
 import { Task } from "../page";
 
-export function MyForm({appendTask}: {appendTask: (newTask: Task) => void}) {
+export function MyForm({appendTask, clientId}: {appendTask: (newTask: Task) => void, clientId: string}) {
   const [value, setValue] = useState('');
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -15,7 +15,7 @@ export function MyForm({appendTask}: {appendTask: (newTask: Task) => void}) {
       isDone: false,
     };
 
-    socket.emit('execute-expensive-task', newTask);
+    socket.emit('execute-expensive-task', clientId, newTask);
 
     setValue('');
 
