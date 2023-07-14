@@ -11,11 +11,12 @@ export function TaskForm({ clientId }: {clientId: string}) {
 
     const newTask: Task = {
       id: "TASK:" + (Math.random()*1000000).toFixed(0),
+      clientId,
       msg: value,
       isDone: false,
     };
 
-    socket.emit('execute-expensive-task', clientId, newTask);
+    socket.emit('execute-expensive-task', newTask);
 
     setValue('');
 

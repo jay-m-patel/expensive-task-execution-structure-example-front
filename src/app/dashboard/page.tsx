@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 
 export interface Task {
   id: string,
+  clientId: string,
   msg: string,
   isDone: boolean,
 }
