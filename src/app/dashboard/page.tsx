@@ -12,7 +12,8 @@ export interface Task {
 }
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState<Array<Task>>([]);  // initial(fetched from db) pending tasks expect 'expensive-task-executed' event!
+  const [ socketId, setSocketId ] = useState<string>("");
+  const [ tasks, setTasks ] = useState<Array<Task>>([]);  // initial(fetched from db) pending tasks expect 'expensive-task-executed' event!
 
   const searchcParams = useSearchParams();
 
@@ -23,6 +24,7 @@ const TaskManager = () => {
 
     function onConnect() {
       console.log("connected with socket id:", socket.id);
+      setSocketId(socket.id);
       socket.emit("join-personal-room", clientId);
     }
 
@@ -59,7 +61,8 @@ const TaskManager = () => {
 
   return (
     <div className="App">
-      <h1>{clientId} {socket.id}</h1>
+      <h1>{clientId}</h1>
+      <h2>Socket: {socketId}</h2>
       <TaskForm clientId={clientId} />
       {
         tasks.map((task) => <TaskView task={task} key={task.id} />)
