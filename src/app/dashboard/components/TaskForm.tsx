@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { socket } from '../../socket';
 import { Task } from "../page";
 
-export function TaskForm({appendTask, clientId}: {appendTask: (newTask: Task) => void, clientId: string}) {
+export function TaskForm({ clientId }: {clientId: string}) {
   const [value, setValue] = useState('');
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -19,7 +19,6 @@ export function TaskForm({appendTask, clientId}: {appendTask: (newTask: Task) =>
 
     setValue('');
 
-    appendTask(newTask);
   };
 
   return (

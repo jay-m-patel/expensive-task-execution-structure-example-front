@@ -39,22 +39,28 @@ const TaskManager = () => {
       }));  // setting the tasks array will re-render all TaskView components!
     });
 
+    const appendTask = (newTask: Task) => {
+      setTasks(tasks => [...tasks, newTask]);
+    }
+  
+    socket.on("append-new-task", (task: Task) => {
+      console.log("append-new-task:", task);
+      appendTask(task);
+    })
+  
     return () => {
       socket.off('connect', () => console.log("'connect' event listener closed."));
+      socket.off('append-new-task', () => console.log("'append-new-task' event listener closed."))
       socket.off('expensive-task-executed', () => console.log("'expensive-task-executed' event listener closed."))
     };
   }, []);
-
-  const appendTask = useCallback((newTask: Task) => {
-    setTasks([...tasks, newTask]);
-  }, [tasks, setTasks])
 
   if(!clientId) return <p>Unknown Client!</p>
 
   return (
     <div className="App">
       <h1>{clientId} {socket.id}</h1>
-      <TaskForm appendTask={appendTask} clientId={clientId} />
+      <TaskForm clientId={clientId} />
       {
         tasks.map((task) => <TaskView task={task} key={task.id} />)
       }
