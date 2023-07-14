@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from 'react';
 import { socket } from '../socket';
-import { MyForm } from './components/MyForm';
+import { TaskForm } from './components/TaskForm';
 import TaskView from './components/TaskView';
 import { useSearchParams } from 'next/navigation';
 
@@ -29,7 +29,7 @@ const TaskManager = () => {
     socket.on('connect', onConnect);
 
     socket.on("expensive-task-executed", (executedTask: Task) => {
-      console.log("expensive-task-executed:", executedTask);
+      console.log("expensive-task-executed:", executedTask, "socket.id", socket.id);
 
       setTasks(tasks => tasks.map(task => {
         if(task.id === executedTask.id) {
@@ -53,8 +53,8 @@ const TaskManager = () => {
 
   return (
     <div className="App">
-      <h1>{clientId}</h1>
-      <MyForm appendTask={appendTask} clientId={clientId} />
+      <h1>{clientId} {socket.id}</h1>
+      <TaskForm appendTask={appendTask} clientId={clientId} />
       {
         tasks.map((task) => <TaskView task={task} key={task.id} />)
       }
